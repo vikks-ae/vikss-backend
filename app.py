@@ -17,7 +17,8 @@ def ask():
         return jsonify({'error': 'Missing prompt'}), 400
 
     prompt = data['prompt']
-try:
+    
+    try:
         response = openai.ChatCompletion.create(
             model="gpt-4",
             messages=[
@@ -31,17 +32,7 @@ try:
     except OpenAIError as e:
         return jsonify({'error': str(e)}), 500
 
-    response = openai.ChatCompletion.create(
-        model="gpt-4",
-        messages=[
-            {"role": "system", "content": "You are a helpful assistant."},
-            {"role": "user", "content": prompt}
-        ]
-    )
-    reply = response['choices'][0]['message']['content']
-    return jsonify({'response': reply})
-
-# ✅ FIXED: Properly wrap the run command
+# ✅ Run the app
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
