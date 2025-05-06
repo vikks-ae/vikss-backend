@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import openai
 import os
-from openai.error import OpenAIError
+from openai import OpenAIError  # ✅ FIXED import
 
 app = Flask(__name__)
 CORS(app)
